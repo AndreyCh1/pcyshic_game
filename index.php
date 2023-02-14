@@ -23,6 +23,7 @@
         ?>
         <form method="post" action="index.php">
             <p><h2>Комп'ютер згенерував число від 1 до 10.</h2></p>
+            <p><h2>Вгадайте це число:</h2></p>
             <?php
             if ($_POST) {
                 if (isset($_POST["password"])) { // если был rand распаковываем его в $password и сохраняем
@@ -39,25 +40,25 @@
                         echo ("$password");
                     }
                     echo ("<h3>Спроба $submit:</h3>"); // выводим количество попыток
-                    echo ("<p><h4>Ви вибрали число <h5>$choise</h5>.</h4></p>"); // выводим выбранное число
+                    echo ("<h4 class='displayOfSelected'>Ви вибрали число <span>$choise</span>.</h4>"); // выводим выбранное число
                     array_push($ansvers, $choise); // добавляем выбранные варианты в массив $ansvers
                     if ($choise == $password) { // если выбранный вариант совпал с загаданным числом удаляем все выбранные варианты из массива $ansvers и выводим кнокну Начать сначала
                         $ansvers = []; 
                         $win = 1;
-                        echo ("<p>Ви вгадали!</p>");
+                        echo ("<p><h2>Ви вгадали!</h2></p>");
                         echo ("<p><a class='button' href='index.php'>Почати спочатку</a></p>");
                     } else if ($submit == 3) { // после трех неудачных попыток можно только начать сначала
-                        echo ("<p><h4>Ви не вгадали, спроби закінчились. Поразка.</h4></p>");
+                        echo ("<p><h4>Ви не вгадали, спроби закінчились. Поразка. :(</h4></p>");
                         echo ("<p><a class='button' href='index.php'>Почати спочатку</a></p>");
                     } else { // при выборе неверного варианта, но когда еще остались попытки можно играть дальше
-                        echo ("<p><h4>Ви не вгадали, спробуйте ще</h4></p>");
+                        echo ("<p><h4>Ви не вгадали, спробуйте ще:</h4></p>");
                     }
                 }
             }
             echo ("<input type='hidden' name='submit' value='$submit'>"); // сохряняем количество отправок
             if ($submit < 3 && $win < 1) { // выводим список вариантов выбора в начале игры, до 3 неудачных попыток или до победы
-                echo ("<select name='choise' placeholder='Вгадайте це число вибравши зі списка:'>");
-                    echo ("<option value='0' selected disabled>Вгадайте це число вибравши зі списка:</option>");
+                echo ("<select name='choise' name='choise' required placeholder=''>");
+                    echo ("<option value='' selected disabled>Виберіть число</option>");
                     for ($i = 1; $i <= 10; $i++) { // создаем 10 вариантов выбора
                         echo ("<option ");
                         for ($previous = 0; $previous < count($ansvers); $previous++) { // делаем недоступным для выбора предыдущий выбранный вариант
@@ -72,11 +73,6 @@
                 echo ("</select>");
                 echo ("<input type='hidden' name='ansvers' value='" .json_encode($ansvers). "'>"); // сохраняем массив с выбранными вариантами
                 echo ("<p><button class='button' type='submit'>Вибрати</button></p>");
-            } else if ($win = 1) { // при победе обнуляем игру, чтобы можно было начать сначала
-                $submit = 0;
-                $password = 0;
-                $choise = 0;
-                $win = 0;
             }
             var_dump($_POST);
             ?>

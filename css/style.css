@@ -20,14 +20,14 @@ h3 {
 }
 
 h4 {
-    display: inline;
-    margin: 0;
+    /* display: inline; */
+    /* margin: 0; */
     font-size: 17px;
 }
 
-h5 {
-    display: inline;
-    margin: 0;
+span {
+    /* display: inline; */
+    /* margin: 0; */
     font-size: 20px;
     color: #956db7;
 }
@@ -35,9 +35,25 @@ h5 {
 .wrapper {
     margin: 70px auto;
     padding: 30px 30px;
-    width: 350px;
+    width: 365px;
     background-color: #fff;
     border-radius: 20px;
+}
+
+.displayOfSelected {
+    margin: 10px 0 0;
+}
+
+.displayOfDefeat {
+    margin: 0 0 10px;
+}
+
+.choise {
+    display: block;
+}
+
+.choise option:first-child  {
+    display: none;
 }
 
 .button {
